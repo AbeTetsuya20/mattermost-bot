@@ -1,0 +1,5 @@
+
+- name: GITLAB_URL
+  value: https://gitlab.com
+- name: GITLAB_TOKEN
+  value: GITLAB_TOKEN_VALUE

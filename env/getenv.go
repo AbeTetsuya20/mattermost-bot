@@ -28,3 +28,19 @@ func GetenvDebug() string {
 
 	return ""
 }
+
+// TOKEN を取得し、Gitlab Client を作成する
+func GetGitlabEnv() *domain.GitlabClient {
+	buf, err := ioutil.ReadFile("/Users/abetetsuya/rat/env/gitlab.yml")
+	if err != nil {
+		panic(err)
+	}
+
+	var tmpGitlabClient domain.GitlabClient
+	err = yaml.Unmarshal(buf, &tmpGitlabClient)
+	if err != nil {
+		panic(err)
+	}
+
+	return &tmpGitlabClient
+}
