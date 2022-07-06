@@ -2,9 +2,13 @@ package domain
 
 import "github.com/xanzy/go-gitlab"
 
+type GitlabInfo struct {
+	Info GitlabClient `yaml:"Gitlab"`
+}
+
 type GitlabClient struct {
-	Token string `yaml:"GITLAB_URL"`
-	Url   string `yaml:"GITLAB_TOKEN"`
+	Url   string `yaml:"GITLAB_URL"`
+	Token string `yaml:"GITLAB_TOKEN"`
 }
 
 type Issue struct {

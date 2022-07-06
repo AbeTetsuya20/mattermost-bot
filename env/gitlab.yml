@@ -1,5 +1,4 @@
 
-- name: GITLAB_URL
-  value: https://gitlab.com
-- name: GITLAB_TOKEN
-  value: GITLAB_TOKEN_VALUE
+Gitlab:
+   GITLAB_URL: http://192.168.0.198:800/api/v4
+   GITLAB_TOKEN: zo75TMZyEbXx7cSNLGHV

@@ -1,8 +1,10 @@
 package env
 
 import (
+	"github.com/xanzy/go-gitlab"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
+	"os"
 	"rat/domain"
 )
 
@@ -30,17 +32,28 @@ func GetenvDebug() string {
 }
 
 // TOKEN を取得し、Gitlab Client を作成する
-func GetGitlabEnv() *domain.GitlabClient {
+func GetGitlabEnv() *gitlab.Client {
 	buf, err := ioutil.ReadFile("/Users/abetetsuya/rat/env/gitlab.yml")
 	if err != nil {
 		panic(err)
 	}
 
-	var tmpGitlabClient domain.GitlabClient
-	err = yaml.Unmarshal(buf, &tmpGitlabClient)
+	expaned := os.ExpandEnv(string(buf))
+
+	var tmpGitlab domain.GitlabInfo
+	err = yaml.Unmarshal([]byte(expaned), &tmpGitlab)
 	if err != nil {
 		panic(err)
 	}
 
-	return &tmpGitlabClient
+	tmpGitlabClient := domain.NewGitlabClient(tmpGitlab.Info.Token, tmpGitlab.Info.Url)
+
+	// Gitlab Client を作成
+	git, err := domain.MyNewClient(tmpGitlabClient)
+
+	if err != nil {
+		panic(err)
+	}
+
+	return git
 }
